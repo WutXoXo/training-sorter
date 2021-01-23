@@ -1,0 +1,87 @@
+﻿@model MVCExample.Entities.ChannelModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>ChannelModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ChannelId" />
+            <div class="form-group">
+                <label asp-for="ChannelName" class="control-label"></label>
+                <input asp-for="ChannelName" class="form-control" />
+                <span asp-validation-for="ChannelName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Endpoint" class="control-label"></label>
+                <input asp-for="Endpoint" class="form-control" />
+                <span asp-validation-for="Endpoint" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecretKey" class="control-label"></label>
+                <input asp-for="SecretKey" class="form-control" readonly />
+                <span asp-validation-for="SecretKey" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TokenKey" class="control-label"></label>
+                <input asp-for="TokenKey" class="form-control" readonly />
+                <span asp-validation-for="TokenKey" class="text-danger"></span>
+            </div>
+            @if (Model.Events != null && Model.Events.Count > 0)
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Events.FirstOrDefault().EventName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Events.FirstOrDefault().EventUrl)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Events.FirstOrDefault().IsActive)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.Events.Count; i++)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model.Events[i].EventName)
+                                    @Html.HiddenFor(modelItem => Model.Events[i].EventName)
+                                    @Html.HiddenFor(modelItem => Model.Events[i].EventId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model.Events[i].EventUrl)
+                                    @Html.HiddenFor(modelItem => Model.Events[i].EventUrl)
+                                </td>
+                                <td>
+                                    @Html.CheckBoxFor(modelItem => Model.Events[i].IsActive)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

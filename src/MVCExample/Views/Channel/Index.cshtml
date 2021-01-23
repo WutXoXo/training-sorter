@@ -1,0 +1,53 @@
+﻿@model IEnumerable<MVCExample.Entities.ChannelModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ChannelName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Endpoint)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SecretKey)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TokenKey)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChannelName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Endpoint)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SecretKey)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TokenKey)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ChannelId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ChannelId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ChannelId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
